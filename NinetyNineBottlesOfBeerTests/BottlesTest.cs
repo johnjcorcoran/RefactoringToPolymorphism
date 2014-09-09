@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
+using NinetyNineBottlesOfBeer;
 
-namespace Tests
+namespace NinetyNineBottlesOfBeerTests
 {
     [TestFixture]
     public class BottlesTest
