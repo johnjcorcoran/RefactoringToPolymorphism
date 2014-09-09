@@ -1,4 +1,6 @@
-﻿namespace NinetyNineBottlesOfBeer
+﻿using System.Text;
+
+namespace NinetyNineBottlesOfBeer
 {
     public class Bottles
     {
@@ -8,6 +10,9 @@
             {   case 99:
                     return  @"99 bottles of beer on the wall, 99 bottles of beer.
 Take one down and pass it around, 98 bottles of beer on the wall.";
+                case 98:
+                    return @"98 bottles of beer on the wall, 98 bottles of beer.
+Take one down and pass it around, 97 bottles of beer on the wall.";
                 case 89:
                     return @"89 bottles of beer on the wall, 89 bottles of beer.
 Take one down and pass it around, 88 bottles of beer on the wall.";
@@ -24,9 +29,16 @@ Go to the store and buy some more, 99 bottles of beer on the wall.";
             return string.Empty;
         }
 
-        public string Verse(int lowerBound, int upperBound)
+        public string Verse(int upperBound, int lowerBound)
         {
-            throw new System.NotImplementedException();
+            var songBuilder = new StringBuilder();
+            for (var verse = upperBound; verse >= lowerBound;verse-- )
+            {
+                songBuilder.Append(Verse(verse));
+                songBuilder.Append("\r\n");
+                songBuilder.Append("\r\n");
+            }
+            return songBuilder.ToString();
         }
     }
 }
