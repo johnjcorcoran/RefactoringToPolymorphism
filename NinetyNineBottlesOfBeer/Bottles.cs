@@ -4,7 +4,8 @@
     {
         public string Verse(int num)
         {
-            throw new System.NotImplementedException();
+            return @"99 bottles of beer on the wall, 99 bottles of beer.
+Take one down and pass it around, 98 bottles of beer on the wall.";
         }
 
         public string Verse(int lowerBound, int upperBound)
