@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace NinetyNineBottlesOfBeer
 {
@@ -21,28 +24,23 @@ namespace NinetyNineBottlesOfBeer
 
 		public string Verse(int num)
 		{
-			return new VerseFactory().CreateVerse(num).GetVerse();
+			return VerseFactory.Create(num).Get();
 		}
 	}
 }
 
-public class VerseFactory
+public static class VerseFactory
 {
-	public IVerse CreateVerse(int num)
+	public static IVerse Create(int num)
 	{
-		if (num == 0)
-		{
-			return new NoBottleVerse();
-		}
-		if (num == 1)
-		{
-			return new OneBottleVerse();
-		}
-		if (num == 2)
-		{
-			return new TwoBottlesVerse();
-		}
-		return new SeveralBottlesVerse(num);
+		var ha = new Dictionary<int, Func<IVerse>>
+			{
+				{3, () => new SeveralBottlesVerse(num)},
+				{2, () => new TwoBottlesVerse()},
+				{1, () => new OneBottleVerse()},
+				{0, () => new NoBottleVerse()}
+			};
+		return ha.First(item => item.Key <= num).Value();
 	}
 }
 
@@ -55,41 +53,37 @@ public class SeveralBottlesVerse : IVerse
 		_num = num;
 	}
 
-	public string GetVerse()
+	public string Get()
 	{
-		return string.Format(@"{0} bottles of beer on the wall, {0} bottles of beer.
-Take one down and pass it around, {1} bottles of beer on the wall.", _num, _num - 1);
+		return string.Format("{0} bottles of beer on the wall, {0} bottles of beer.\r\nTake one down and pass it around, {1} bottles of beer on the wall.", _num, _num - 1);
 	}
 }
 
 public class TwoBottlesVerse : IVerse
 {
-	public string GetVerse()
+	public string Get()
 	{
-		return @"2 bottles of beer on the wall, 2 bottles of beer.
-Take one down and pass it around, 1 bottle of beer on the wall.";
+		return "2 bottles of beer on the wall, 2 bottles of beer.\r\nTake one down and pass it around, 1 bottle of beer on the wall.";
 	}
 }
 
 public class OneBottleVerse : IVerse
 {
-	public string GetVerse()
+	public string Get()
 	{
-		return @"1 bottle of beer on the wall, 1 bottle of beer.
-Take it down and pass it around, no more bottles of beer on the wall.";
+		return "1 bottle of beer on the wall, 1 bottle of beer.\r\nTake it down and pass it around, no more bottles of beer on the wall.";
 	}
 }
 
 public class NoBottleVerse : IVerse
 {
-	public string GetVerse()
+	public string Get()
 	{
-		return @"No more bottles of beer on the wall, no more bottles of beer.
-Go to the store and buy some more, 99 bottles of beer on the wall.";
+		return "No more bottles of beer on the wall, no more bottles of beer.\r\nGo to the store and buy some more, 99 bottles of beer on the wall.";
 	}
 }
 
 public interface IVerse
 {
-	string GetVerse();
+	string Get();
 }
