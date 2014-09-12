@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -33,15 +32,21 @@ public static class VerseFactory
 {
 	public static IVerse Create(int num)
 	{
-		var ha = new Dictionary<int, Func<IVerse>>
+		var verses = new List<IVerse>
 			{
-				{3, () => new SeveralBottlesVerse(num)},
-				{2, () => new TwoBottlesVerse()},
-				{1, () => new OneBottleVerse()},
-				{0, () => new NoBottleVerse()}
+				new SeveralBottlesVerse(num),
+				new TwoBottlesVerse(),
+				new OneBottleVerse(),
+				new NoBottleVerse()
 			};
-		return ha.First(item => item.Key <= num).Value();
+		return verses.Single(verse => verse.HandleBottles(num));
 	}
+}
+
+public interface IVerse
+{
+	string Get();
+	bool HandleBottles(int number);
 }
 
 public class SeveralBottlesVerse : IVerse
@@ -57,6 +62,11 @@ public class SeveralBottlesVerse : IVerse
 	{
 		return string.Format("{0} bottles of beer on the wall, {0} bottles of beer.\r\nTake one down and pass it around, {1} bottles of beer on the wall.", _num, _num - 1);
 	}
+
+	public bool HandleBottles(int number)
+	{
+		return number > 2;
+	}
 }
 
 public class TwoBottlesVerse : IVerse
@@ -64,6 +74,11 @@ public class TwoBottlesVerse : IVerse
 	public string Get()
 	{
 		return "2 bottles of beer on the wall, 2 bottles of beer.\r\nTake one down and pass it around, 1 bottle of beer on the wall.";
+	}
+
+	public bool HandleBottles(int number)
+	{
+		return number == 2;
 	}
 }
 
@@ -73,6 +88,11 @@ public class OneBottleVerse : IVerse
 	{
 		return "1 bottle of beer on the wall, 1 bottle of beer.\r\nTake it down and pass it around, no more bottles of beer on the wall.";
 	}
+
+	public bool HandleBottles(int number)
+	{
+		return number == 1;
+	}
 }
 
 public class NoBottleVerse : IVerse
@@ -81,9 +101,9 @@ public class NoBottleVerse : IVerse
 	{
 		return "No more bottles of beer on the wall, no more bottles of beer.\r\nGo to the store and buy some more, 99 bottles of beer on the wall.";
 	}
-}
 
-public interface IVerse
-{
-	string Get();
+	public bool HandleBottles(int number)
+	{
+		return number == 0;
+	}
 }
