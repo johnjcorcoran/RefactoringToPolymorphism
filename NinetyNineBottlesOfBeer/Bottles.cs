@@ -8,19 +8,9 @@ namespace NinetyNineBottlesOfBeer
 
 		public string Verse(int upperBound, int lowerBound)
 		{
-			if (upperBound == 2)
-			{
-				return Verse(2) + VerseSeparator + Verse(1) + VerseSeparator + Verse(0) + VerseSeparator;
-			}
-
-			return VerseUsingLoop(upperBound, lowerBound);
-		}
-
-		public string VerseUsingLoop(int upperBound, int lowerBound)
-		{
 			var song = new StringBuilder();
 
-			for (int i = upperBound; i >= lowerBound; i--)
+			for (var i = upperBound; i >= lowerBound; i--)
 			{
 				song.Append(Verse(i));
 				song.Append(VerseSeparator);
