@@ -38,26 +38,65 @@ namespace NinetyNineBottlesOfBeer
 
 		public string GetVerse(int num)
 		{
-			return string.Format(@"{0} bottles of beer on the wall, {0} bottles of beer.
-Take one down and pass it around, {1} bottles of beer on the wall.", num, num - 1);
-		}
-
-		public string GetOneBottleVerse()
-		{
-			return @"1 bottle of beer on the wall, 1 bottle of beer.
-Take it down and pass it around, no more bottles of beer on the wall.";
+			return new SeveralBottles(num).GetVerse();
 		}
 
 		public string GetTwoBottlesVerse()
 		{
-			return @"2 bottles of beer on the wall, 2 bottles of beer.
-Take one down and pass it around, 1 bottle of beer on the wall.";
+			return new TwoBottles().GetVerse();
+		}
+
+		public string GetOneBottleVerse()
+		{
+			return new OneBottle().GetVerse();
 		}
 
 		public string GetNoBottlesVerse()
 		{
-			return @"No more bottles of beer on the wall, no more bottles of beer.
-Go to the store and buy some more, 99 bottles of beer on the wall.";
+			return new NoBottle().GetVerse();
 		}
+	}
+}
+
+public class SeveralBottles
+{
+	private readonly int _num;
+
+	public SeveralBottles(int num)
+	{
+		_num = num;
+	}
+
+	public string GetVerse()
+	{
+		return string.Format(@"{0} bottles of beer on the wall, {0} bottles of beer.
+Take one down and pass it around, {1} bottles of beer on the wall.", _num, _num - 1);
+	}
+}
+
+public class TwoBottles
+{
+	public string GetVerse()
+	{
+		return @"2 bottles of beer on the wall, 2 bottles of beer.
+Take one down and pass it around, 1 bottle of beer on the wall.";
+	}
+}
+
+public class OneBottle
+{
+	public string GetVerse()
+	{
+		return @"1 bottle of beer on the wall, 1 bottle of beer.
+Take it down and pass it around, no more bottles of beer on the wall.";
+	}
+}
+
+public class NoBottle
+{
+	public string GetVerse()
+	{
+		return @"No more bottles of beer on the wall, no more bottles of beer.
+Go to the store and buy some more, 99 bottles of beer on the wall.";
 	}
 }
