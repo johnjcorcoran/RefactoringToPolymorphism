@@ -2,14 +2,16 @@
 {
 	public class Bottles
 	{
+		private const string VerseSeparator = "\r\n\r\n";
+
 		public string Verse(int upperBound, int lowerBound)
 		{
 			if (upperBound == 2)
 			{
-				return Verse(2) + "\r\n\r\n" + Verse(1) + "\r\n\r\n" + Verse(0) + "\r\n\r\n";
+				return Verse(2) + VerseSeparator + Verse(1) + VerseSeparator + Verse(0) + VerseSeparator;
 			}
 
-			return Verse(99) + "\r\n\r\n" + Verse(98) + "\r\n\r\n";
+			return Verse(99) + VerseSeparator + Verse(98) + VerseSeparator;
 		}
 
 		public string Verse(int num)
