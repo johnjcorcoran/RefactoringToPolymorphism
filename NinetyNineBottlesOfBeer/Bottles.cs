@@ -1,4 +1,6 @@
-﻿namespace NinetyNineBottlesOfBeer
+﻿using System.Text;
+
+namespace NinetyNineBottlesOfBeer
 {
 	public class Bottles
 	{
@@ -11,7 +13,20 @@
 				return Verse(2) + VerseSeparator + Verse(1) + VerseSeparator + Verse(0) + VerseSeparator;
 			}
 
-			return Verse(99) + VerseSeparator + Verse(98) + VerseSeparator;
+			return VerseUsingLoop(upperBound, lowerBound);
+		}
+
+		public string VerseUsingLoop(int upperBound, int lowerBound)
+		{
+			var song = new StringBuilder();
+
+			for (int i = upperBound; i >= lowerBound; i--)
+			{
+				song.Append(Verse(i));
+				song.Append(VerseSeparator);
+			}
+
+			return song.ToString();
 		}
 
 		public string Verse(int num)
