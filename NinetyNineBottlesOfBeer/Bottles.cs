@@ -21,48 +21,36 @@ namespace NinetyNineBottlesOfBeer
 
 		public string Verse(int num)
 		{
-			if (num == 0)
-			{
-				return GetNoBottlesVerse();
-			}
-			if (num == 1)
-			{
-				return GetOneBottleVerse();
-			}
-			if (num == 2)
-			{
-				return GetTwoBottlesVerse();
-			}
-			return GetVerse(num);
-		}
-
-		public string GetVerse(int num)
-		{
-			return new SeveralBottles(num).GetVerse();
-		}
-
-		public string GetTwoBottlesVerse()
-		{
-			return new TwoBottles().GetVerse();
-		}
-
-		public string GetOneBottleVerse()
-		{
-			return new OneBottle().GetVerse();
-		}
-
-		public string GetNoBottlesVerse()
-		{
-			return new NoBottle().GetVerse();
+			return new VerseFactory().CreateVerse(num).GetVerse();
 		}
 	}
 }
 
-public class SeveralBottles
+public class VerseFactory
+{
+	public IVerse CreateVerse(int num)
+	{
+		if (num == 0)
+		{
+			return new NoBottleVerse();
+		}
+		if (num == 1)
+		{
+			return new OneBottleVerse();
+		}
+		if (num == 2)
+		{
+			return new TwoBottlesVerse();
+		}
+		return new SeveralBottlesVerse(num);
+	}
+}
+
+public class SeveralBottlesVerse : IVerse
 {
 	private readonly int _num;
 
-	public SeveralBottles(int num)
+	public SeveralBottlesVerse(int num)
 	{
 		_num = num;
 	}
@@ -74,7 +62,7 @@ Take one down and pass it around, {1} bottles of beer on the wall.", _num, _num 
 	}
 }
 
-public class TwoBottles
+public class TwoBottlesVerse : IVerse
 {
 	public string GetVerse()
 	{
@@ -83,7 +71,7 @@ Take one down and pass it around, 1 bottle of beer on the wall.";
 	}
 }
 
-public class OneBottle
+public class OneBottleVerse : IVerse
 {
 	public string GetVerse()
 	{
@@ -92,11 +80,16 @@ Take it down and pass it around, no more bottles of beer on the wall.";
 	}
 }
 
-public class NoBottle
+public class NoBottleVerse : IVerse
 {
 	public string GetVerse()
 	{
 		return @"No more bottles of beer on the wall, no more bottles of beer.
 Go to the store and buy some more, 99 bottles of beer on the wall.";
 	}
+}
+
+public interface IVerse
+{
+	string GetVerse();
 }
