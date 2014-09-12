@@ -51,16 +51,16 @@ public interface IVerse
 
 public class SeveralBottlesVerse : IVerse
 {
-	private readonly int _num;
+	private readonly int _numberOfBottles;
 
-	public SeveralBottlesVerse(int num)
+	public SeveralBottlesVerse(int numberOfBottles)
 	{
-		_num = num;
+		_numberOfBottles = numberOfBottles;
 	}
 
 	public string Get()
 	{
-		return string.Format("{0} bottles of beer on the wall, {0} bottles of beer.\r\nTake one down and pass it around, {1} bottles of beer on the wall.", _num, _num - 1);
+		return string.Format("{0} bottles of beer on the wall, {0} bottles of beer.\r\nTake one down and pass it around, {1} bottles of beer on the wall.", _numberOfBottles, _numberOfBottles - 1);
 	}
 
 	public bool CanHandleBottles(int number)
