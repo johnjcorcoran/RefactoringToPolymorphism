@@ -9,13 +9,7 @@
 				return Verse(2) + "\r\n\r\n" + Verse(1) + "\r\n\r\n" + Verse(0) + "\r\n\r\n";
 			}
 
-			return @"99 bottles of beer on the wall, 99 bottles of beer.
-Take one down and pass it around, 98 bottles of beer on the wall.
-
-98 bottles of beer on the wall, 98 bottles of beer.
-Take one down and pass it around, 97 bottles of beer on the wall.
-
-";
+			return Verse(99) + "\r\n\r\n" + Verse(98) + "\r\n\r\n";
 		}
 
 		public string Verse(int num)
@@ -32,11 +26,7 @@ Take one down and pass it around, 97 bottles of beer on the wall.
 			{
 				return GetTwoBottlesVerse();
 			}
-			if (num == 89)
-			{
-				return GetVerse(89);
-			}
-			return GetVerse(99);
+			return GetVerse(num);
 		}
 
 		public string GetVerse(int num)
