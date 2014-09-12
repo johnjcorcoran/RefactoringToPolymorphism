@@ -6,18 +6,7 @@ Your task is to:
   1. Add  to make the _all_ of the tests pass. Some of the tests are ignored Use
 whatever strategy you like; you'll be done when no tests are 'skipped' and all
 tests pass.
-  1. Once the tests pass, change the code you've written to be open/closed to
-the following new requirement:
-
-    _When there are 6 bottles on the wall, say '1 six-pack' instead of
-'6 bottles'._
-<pre>
-    7 bottles of beer on the wall, 7 bottles of beer,
-    take one down and pass it around, 1 six-pack of beer on the wall.
-    1 six-pack of beer on the wall, 1 six-pack of beer,
-    take one down and pass it around, 5 bottles of beer on the wall.
-</pre>
-  1. Now that your code is open/closed, add the '6-packs' feature.
+  1. Once the tests pass, refactor (like a tractor)
 
 
 ## FYI, the Lyrics
